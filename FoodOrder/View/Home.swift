@@ -60,6 +60,11 @@ struct Home: View {
             
             Spacer()
         }
+        .onAppear {
+            //calling location delegate
+            HomeVM.locationManager.delegate = HomeVM
+            
+        }
     }
 }
 
