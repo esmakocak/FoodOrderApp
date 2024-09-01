@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Home: View {
+    
+    @StateObject var HomeVM = HomeViewModel()
+    
     var body: some View {
         VStack(spacing: 10){
             
@@ -28,8 +31,30 @@ struct Home: View {
                     .font(.caption)
                     .fontWeight(.heavy)
                     .foregroundColor(Color("pinky"))
+                
+                Spacer(minLength: 0)
             }
             .padding([.horizontal, .top])
+            
+            Divider()
+            
+            HStack(spacing: 15){
+                TextField("Search", text: $HomeVM.search)
+                
+                if HomeVM.search != "" {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                    } 
+                    .animation(.easeIn, value: HomeVM.search)
+
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 10)
             
             Divider()
             

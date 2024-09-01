@@ -12,6 +12,7 @@
 		401D5E842C848B35005EE9B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 401D5E832C848B35005EE9B4 /* Assets.xcassets */; };
 		401D5E872C848B35005EE9B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 401D5E862C848B35005EE9B4 /* Preview Assets.xcassets */; };
 		401D5E912C848BFE005EE9B4 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5E902C848BFE005EE9B4 /* Home.swift */; };
+		401D5E942C84928B005EE9B4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5E932C84928B005EE9B4 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		401D5E832C848B35005EE9B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		401D5E862C848B35005EE9B4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		401D5E902C848BFE005EE9B4 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		401D5E932C84928B005EE9B4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +85,7 @@
 		401D5E8E2C848BD7005EE9B4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				401D5E922C848C16005EE9B4 /* HomeViewModel */,
+				401D5E932C84928B005EE9B4 /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -93,13 +95,6 @@
 			children = (
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		401D5E922C848C16005EE9B4 /* HomeViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HomeViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +170,7 @@
 				401D5E822C848B32005EE9B4 /* ContentView.swift in Sources */,
 				401D5E912C848BFE005EE9B4 /* Home.swift in Sources */,
 				401D5E802C848B32005EE9B4 /* FoodOrderApp.swift in Sources */,
+				401D5E942C84928B005EE9B4 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
