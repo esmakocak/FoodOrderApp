@@ -13,12 +13,16 @@ struct Home: View {
     
     var body: some View {
         ZStack {
+            
+            // MARK: Top Bar
             VStack(spacing: 10){
                 
                 HStack(spacing: 15){
                     
                     Button {
-                        
+                        withAnimation(.easeIn) {
+                            HomeVM.showMenu.toggle()
+                        }
                     } label: {
                         Image(systemName: "line.horizontal.3")
                             .font(.title)
@@ -61,6 +65,23 @@ struct Home: View {
                 
                 Spacer()
             }
+            
+            // MARK: Side Bar
+            HStack{
+                Menu(homeData: HomeVM)
+                //Move effect from left
+                    .offset(x: HomeVM.showMenu ? 0 : -UIScreen.main.bounds.width / 1.6)
+                
+                Spacer(minLength: 0)
+            }
+            .background(Color.black.opacity(HomeVM.showMenu ? 0.3 : 0).ignoresSafeArea()
+                // close side menu when user taps outside
+                .onTapGesture {
+                    withAnimation(.easeIn) {
+                        HomeVM.showMenu.toggle()
+                    }
+                }
+            )
             
             // Non Closable Alert If Permission Denied
             if HomeVM.noLocation {

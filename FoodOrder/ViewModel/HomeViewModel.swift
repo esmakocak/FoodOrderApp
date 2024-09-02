@@ -13,14 +13,15 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     // CLLocationManager instance to manage location services
     @Published var locationManager = CLLocationManager()
-
     @Published var search = ""
     
+    // Location Details
     @Published var userLocation: CLLocation!
-    
-    // Stores the user's current address based on the location
-    @Published var userAddress = ""
+    @Published var userAddress = "" // Stores the user's current address based on the location
     @Published var noLocation = false
+    
+    // Menu
+    @Published var showMenu = false
     
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

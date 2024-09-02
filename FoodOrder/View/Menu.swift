@@ -28,8 +28,13 @@ struct Menu: View {
                 }
                 .padding()
             }
-
+            
+            Spacer()
+            
         }
+        .padding([.top, .trailing])
+        .frame(width: UIScreen.main.bounds.width / 2)
+        .background(Color.white.ignoresSafeArea())
     }
 }
 
