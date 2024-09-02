@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseAuth
 
 // HomeViewModel handles location-related functionality.
 class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -54,6 +55,7 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         // Extracting address details from the location data
         self.extractLocation()
+        self.login()
     }
     
     
@@ -71,6 +73,21 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             address += safeData.first?.locality ?? ""
             
             self.userAddress = address
+        }
+    }
+    
+    // Anonymous Auth
+    func login(){
+        Auth.auth().signInAnonymously { (res, err) in
+            
+            if let error = err {
+                print(error.localizedDescription)
+                return
+            }
+            
+            if let result = res {
+                print("Success \(result.user.uid)")
+            }
         }
     }
 }
