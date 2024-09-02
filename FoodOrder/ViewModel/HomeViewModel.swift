@@ -8,38 +8,63 @@
 import SwiftUI
 import CoreLocation
 
+// HomeViewModel handles location-related functionality.
 class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    
+    // CLLocationManager instance to manage location services
     @Published var locationManager = CLLocationManager()
+    
     @Published var search = ""
     
-    @Published var userLocation : CLLocation?
-    @Published var userAdress = ""
+    @Published var userLocation: CLLocation!
     
+    // Stores the user's current address based on the location
+    @Published var userAddress = ""
+    
+    // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        // This method is called when the location authorization status changes
         // Checking the user's location access permission status
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:
             print("authorized")
+            // Request the current location after authorization is allowed,
+            // triggering locationManager(_:didUpdateLocations:) to provide the user's location.
+            manager.requestLocation()
         case .denied:
-            print ("denied")
+            print("denied")
         default:
-            print ("unknown")
-            //Direct Call
+            print("unknown")
             locationManager.requestWhenInUseAuthorization()
         }
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
+    // This method is called when new location data is available
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //reading user location and extracting details.
         self.userLocation = locations.last
+        
+        // Extracting address details from the location data
         self.extractLocation()
     }
     
-    func extractLocation(){}
+    
+    func extractLocation() {
+        // Reverse geocoding to convert location coordinates to a human-readable address
+        CLGeocoder().reverseGeocodeLocation(self.userLocation) { (res, err) in
+            
+            guard let safeData = res else { return }
+            
+            var address = ""
+            
+            // Extracting the name of the location and locality (e.g., street name, city)
+            address += safeData.first?.name ?? ""
+            address += ", "
+            address += safeData.first?.locality ?? ""
+            
+            self.userAddress = address
+        }
+    }
 }

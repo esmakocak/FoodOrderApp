@@ -24,10 +24,10 @@ struct Home: View {
                         .foregroundColor(Color("pinky"))
                 }
 
-                Text("Deliver To")
+                Text(HomeVM.userLocation == nil ? "Locating..." : "Deliver To")
                     .foregroundColor(.black)
                 
-                Text("Apple")
+                Text(HomeVM.userAddress)
                     .font(.caption)
                     .fontWeight(.heavy)
                     .foregroundColor(Color("pinky"))
