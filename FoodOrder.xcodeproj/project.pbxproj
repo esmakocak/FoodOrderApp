@@ -18,6 +18,7 @@
 		401D5EA72C85EE03005EE9B4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 401D5EA62C85EE03005EE9B4 /* FirebaseAuth */; };
 		401D5EB12C85EE03005EE9B4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 401D5EB02C85EE03005EE9B4 /* FirebaseFirestore */; };
 		401D5EC92C862F51005EE9B4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5EC82C862F51005EE9B4 /* Item.swift */; };
+		401D5ECD2C863569005EE9B4 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5ECC2C863569005EE9B4 /* ItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		401D5E972C85DFD0005EE9B4 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		401D5E992C85EDA3005EE9B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		401D5EC82C862F51005EE9B4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		401D5ECC2C863569005EE9B4 /* ItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				401D5E902C848BFE005EE9B4 /* Home.swift */,
 				401D5E972C85DFD0005EE9B4 /* Menu.swift */,
+				401D5ECC2C863569005EE9B4 /* ItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				401D5E912C848BFE005EE9B4 /* Home.swift in Sources */,
 				401D5E802C848B32005EE9B4 /* FoodOrderApp.swift in Sources */,
 				401D5E942C84928B005EE9B4 /* HomeViewModel.swift in Sources */,
+				401D5ECD2C863569005EE9B4 /* ItemView.swift in Sources */,
 				401D5EC92C862F51005EE9B4 /* Item.swift in Sources */,
 				401D5E982C85DFD0005EE9B4 /* Menu.swift in Sources */,
 			);

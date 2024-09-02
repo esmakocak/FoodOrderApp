@@ -63,7 +63,17 @@ struct Home: View {
                 
                 Divider()
                 
-                Spacer()
+                //MARK: Foods View
+                ScrollView(.vertical, showsIndicators: false){
+                    VStack(spacing: 25){
+                        ForEach(HomeVM.items){ item in
+                            Text(item.item_name)
+                           
+                            
+                        }
+                    }
+                }
+                
             }
             
             // MARK: Side Bar
