@@ -13,6 +13,7 @@
 		401D5E872C848B35005EE9B4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 401D5E862C848B35005EE9B4 /* Preview Assets.xcassets */; };
 		401D5E912C848BFE005EE9B4 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5E902C848BFE005EE9B4 /* Home.swift */; };
 		401D5E942C84928B005EE9B4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5E932C84928B005EE9B4 /* HomeViewModel.swift */; };
+		401D5E982C85DFD0005EE9B4 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401D5E972C85DFD0005EE9B4 /* Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		401D5E902C848BFE005EE9B4 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		401D5E932C84928B005EE9B4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		401D5E952C84A81B005EE9B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		401D5E972C85DFD0005EE9B4 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				401D5E902C848BFE005EE9B4 /* Home.swift */,
+				401D5E972C85DFD0005EE9B4 /* Menu.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				401D5E912C848BFE005EE9B4 /* Home.swift in Sources */,
 				401D5E802C848B32005EE9B4 /* FoodOrderApp.swift in Sources */,
 				401D5E942C84928B005EE9B4 /* HomeViewModel.swift in Sources */,
+				401D5E982C85DFD0005EE9B4 /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

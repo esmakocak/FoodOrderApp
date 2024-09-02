@@ -13,13 +13,14 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     // CLLocationManager instance to manage location services
     @Published var locationManager = CLLocationManager()
-    
+
     @Published var search = ""
     
     @Published var userLocation: CLLocation!
     
     // Stores the user's current address based on the location
     @Published var userAddress = ""
+    @Published var noLocation = false
     
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -27,13 +28,17 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:
             print("authorized")
+            self.noLocation = false
+
             // Request the current location after authorization is allowed,
             // triggering locationManager(_:didUpdateLocations:) to provide the user's location.
             manager.requestLocation()
         case .denied:
             print("denied")
+            self.noLocation = true
         default:
             print("unknown")
+            self.noLocation = false
             locationManager.requestWhenInUseAuthorization()
         }
     }
