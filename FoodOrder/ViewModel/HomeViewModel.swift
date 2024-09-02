@@ -8,6 +8,7 @@
 import SwiftUI
 import CoreLocation
 import FirebaseAuth
+import FirebaseFirestore
 
 // HomeViewModel handles location-related functionality.
 class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -24,6 +25,9 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Menu
     @Published var showMenu = false
     
+    // Food Data
+    @Published var items: [Item] = []
+    
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // Checking the user's location access permission status
@@ -31,7 +35,7 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         case .authorizedWhenInUse:
             print("authorized")
             self.noLocation = false
-
+            
             // Request the current location after authorization is allowed,
             // triggering locationManager(_:didUpdateLocations:) to provide the user's location.
             manager.requestLocation()
@@ -87,7 +91,39 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             
             if let result = res {
                 print("Success \(result.user.uid)")
+                
+                // after logged in, fetch data
+                self.fetchData()
             }
         }
     }
+    
+    // Fetch food data from firebase
+    func fetchData(){
+            
+        let db = Firestore.firestore()
+        
+        // Fetching documents from the "Items" collection
+        db.collection("Items").getDocuments { (snap, err) in
+            
+            // Check if the snapshot is not nil
+            guard let itemData = snap else { return }
+            
+            // Mapping documents to Item model objects
+            self.items = itemData.documents.compactMap({ (doc) -> Item? in
+                
+                // Extracting values safely with default values if nil
+                let id = doc.documentID
+                let name = doc.get("item_name") as? String ?? "Unknown Name"
+                let cost = doc.get("item_cost") as? NSNumber ?? 0
+                let ratings = doc.get("item_ratings") as? String ?? "No Ratings"
+                let image = doc.get("item_image") as? String ?? "No Image"
+                let details = doc.get("item_details") as? String ?? "No Details"
+                
+                // Returning an Item object
+                return Item(id: id, item_name: name, item_cost: cost, item_details: details, item_image: image, item_ratings: ratings)
+            })
+        }
+    }
+    
 }
