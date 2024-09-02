@@ -67,7 +67,9 @@ struct Home: View {
                 ScrollView(.vertical, showsIndicators: false){
                     VStack(spacing: 25){
                         ForEach(HomeVM.items){ item in
-                            Text(item.item_name)
+                            
+                            ItemView(item: item)
+                                .frame(width: UIScreen.main.bounds.width - 30)
                            
                             
                         }
