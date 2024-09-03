@@ -63,18 +63,43 @@ struct Home: View {
                 
                 Divider()
                 
-                //MARK: Foods View
-                ScrollView(.vertical, showsIndicators: false){
-                    VStack(spacing: 25){
-                        ForEach(HomeVM.items){ item in
-                            
-                            ItemView(item: item)
-                                .frame(width: UIScreen.main.bounds.width - 30)
-                           
-                            
+                // MARK: Foods View
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 25) {
+                        ForEach(HomeVM.items) { item in
+                            ZStack(alignment: .topLeading) {
+                                ItemView(item: item)
+                                    .frame(width: UIScreen.main.bounds.width - 30)
+                                    .clipped()
+
+                                HStack {
+                                    Text("Free Delivery")
+                                        .foregroundColor(.white)
+                                        .padding(.vertical, 10)
+                                        .padding(.horizontal)
+                                        .background(Color("pinky"))
+                                    
+                                    Spacer(minLength: 0)
+                                    
+                                    Button {
+                                        
+                                    } label: {
+                                        Image(systemName: "plus")
+                                            .foregroundColor(.white)
+                                            .padding(10)
+                                            .background(Color("pinky"))
+                                            .clipShape(Circle())
+                                    }
+
+                                } 
+                                .padding(.trailing, 10)
+                                .padding(.top, 10)
+                            }
+                            .frame(width: UIScreen.main.bounds.width - 30)
                         }
                     }
                 }
+
                 
             }
             
