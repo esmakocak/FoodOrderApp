@@ -44,19 +44,11 @@ struct Home: View {
                 Divider()
                 
                 HStack(spacing: 15){
-                    TextField("Search", text: $HomeVM.search)
+                    Image(systemName: "magnifyingglass")
+                        .font(.title2)
+                        .foregroundColor(.gray)
                     
-                    if HomeVM.search != "" {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                                .font(.title2)
-                                .foregroundColor(.gray)
-                        }
-                        .animation(.easeIn, value: HomeVM.search)
-                        
-                    }
+                    TextField("Search", text: $HomeVM.search)
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
@@ -66,7 +58,7 @@ struct Home: View {
                 // MARK: Foods View
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 25) {
-                        ForEach(HomeVM.items) { item in
+                        ForEach(HomeVM.filtered) { item in
                             ZStack(alignment: .topLeading) {
                                 ItemView(item: item)
                                     .frame(width: UIScreen.main.bounds.width - 30)
@@ -135,6 +127,23 @@ struct Home: View {
             //calling location delegate
             HomeVM.locationManager.delegate = HomeVM
         }
+        .onChange(of: HomeVM.search, perform: { value in
+            
+            // to avoid continues search request
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                
+                if value == HomeVM.search && HomeVM.search != ""{
+                    
+                    // Search Data
+                    HomeVM.filterData()
+                }
+            }
+            
+            if HomeVM.search == ""{
+                withAnimation(.linear){HomeVM.filtered = HomeVM.items}
+            }
+            
+        })
         
     }
 }

@@ -27,6 +27,7 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     // Food Data
     @Published var items: [Item] = []
+    @Published var filtered: [Item] = []
     
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -123,7 +124,20 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 // Returning an Item object
                 return Item(id: id, item_name: name, item_cost: cost, item_details: details, item_image: image, item_ratings: ratings)
             })
+            
+            self.filtered = self.items
         }
+    }
+    
+    // Search or Filter
+    func filterData(){
+        
+        withAnimation(.linear){
+            self.filtered = self.items.filter{
+                return $0.item_name.lowercased().contains(self.search.lowercased())
+            }
+        }
+        
     }
     
 }
