@@ -64,7 +64,7 @@ struct Home: View {
                                     ItemView(item: item)
                                         .frame(width: UIScreen.main.bounds.width - 30)
                                         .clipped()
-
+                                    
                                     HStack {
                                         Text("Free Delivery")
                                             .foregroundColor(.white)
@@ -75,16 +75,34 @@ struct Home: View {
                                         Spacer(minLength: 0)
                                         
                                         Button {
-                                            HomeVM.addToCart(item: item)
+                                            // Set the specific item as adding to cart
+                                            if let index = HomeVM.filtered.firstIndex(where: { $0.id == item.id }) {
+                                                HomeVM.filtered[index].isAddingToCart = true
+                                                HomeVM.addToCart(item: item)
+                                                
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                                                    HomeVM.filtered[index].isAddingToCart = false
+                                                }
+                                            }
                                         } label: {
-                                            Image(systemName: "plus")
-                                                .foregroundColor(.white)
-                                                .padding(10)
-                                                .background(Color("pinky"))
-                                                .clipShape(Circle())
+                                            // Use conditional view to show either the plus icon or the checkmark
+                                            if item.isAddingToCart {
+                                                Image(systemName: "checkmark")
+                                                    .foregroundColor(.white)
+                                                    .padding(10)
+                                                    .background(Color.green)
+                                                    .clipShape(Circle())
+                                                    .transition(.scale)
+                                            } else {
+                                                Image(systemName: "plus")
+                                                    .foregroundColor(.white)
+                                                    .padding(10)
+                                                    .background(Color("pinky"))
+                                                    .clipShape(Circle())
+                                            }
                                         }
-
-                                    } 
+                                        .animation(.easeIn, value: item.isAddingToCart)
+                                    }
                                     .padding(.trailing, 10)
                                     .padding(.top, 10)
                                 }
@@ -92,7 +110,7 @@ struct Home: View {
                             }
                         }
                     }
-
+                    
                     
                 }
                 
@@ -105,7 +123,7 @@ struct Home: View {
                     Spacer(minLength: 0)
                 }
                 .background(Color.black.opacity(HomeVM.showMenu ? 0.3 : 0).ignoresSafeArea()
-                    // close side menu when user taps outside
+                            // close side menu when user taps outside
                     .onTapGesture {
                         withAnimation(.easeIn) {
                             HomeVM.showMenu.toggle()
@@ -144,7 +162,7 @@ struct Home: View {
                     withAnimation(.linear){HomeVM.filtered = HomeVM.items}
                 }
                 
-        })
+            })
         }
         
     }

@@ -132,8 +132,10 @@ struct CartView: View {
                             
                         }
                         .padding()
+                        
                     }
                 }
+                
                 
                 // Total price and checkout button
                 VStack {
