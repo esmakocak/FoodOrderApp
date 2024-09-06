@@ -1,1 +1,10 @@
 GoogleService-Info.plist
+*.xcuserstate
+*.xcworkspace
+*.xcuserdata
+*.xcuserdatad
+google-services.json
+*.log
+*.tmp
+*.swp
+.DS_Store
