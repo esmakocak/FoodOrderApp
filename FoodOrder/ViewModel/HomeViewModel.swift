@@ -29,6 +29,9 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var items: [Item] = []
     @Published var filtered: [Item] = []
     
+    // Cart Data
+    @Published var cartItems : [Cart] = []
+    
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // Checking the user's location access permission status
@@ -139,5 +142,18 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
         
     }
+    
+    // Add to Cart Function
+    func addToCart(item: Item){
+        // Check if item already exists in the cart
+            if let index = cartItems.firstIndex(where: { $0.item.id == item.id }) {
+                // If item is already in the cart, increase the quantity
+                cartItems[index].quantity += 1
+            } else {
+                // If item is not in the cart, add it with quantity 1
+                cartItems.append(Cart(item: item, quantity: 1))
+            }
+    }
+    
     
 }

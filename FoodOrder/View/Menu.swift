@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct Menu: View {
-    @ObservedObject var homeData : HomeViewModel
+    @ObservedObject var homeData: HomeViewModel
     var body: some View {
-            
-        VStack{
-            Button {
-                
-            } label: {
-                HStack(spacing: 15){
+        
+        VStack {
+            NavigationLink(destination: CartView(homeData: homeData)) {
+                HStack(spacing: 15) {
                     Image(systemName: "cart")
                         .font(.title)
                         .foregroundColor(Color("pinky"))
@@ -30,7 +28,6 @@ struct Menu: View {
             }
             
             Spacer()
-            
         }
         .padding([.top, .trailing])
         .frame(width: UIScreen.main.bounds.width / 2)
