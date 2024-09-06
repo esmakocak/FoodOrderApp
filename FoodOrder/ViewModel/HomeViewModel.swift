@@ -32,6 +32,11 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     // Cart Data
     @Published var cartItems : [Cart] = []
     
+    // Calculate Order Price
+    var totalPrice: Double {
+            cartItems.reduce(0) { $0 + (Double(truncating: $1.item.item_cost) * Double($1.quantity)) }
+    }
+    
     // This method is called whenever the location authorization status changes
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // Checking the user's location access permission status
@@ -156,4 +161,61 @@ class HomeViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     
+    func saveOrderToFirestore() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Firestore.firestore()
+        
+        let orderData: [String: Any] = [
+            "location": [
+                "latitude": userLocation.coordinate.latitude,
+                "longitude": userLocation.coordinate.longitude
+            ],
+            "ordered_food": cartItems.enumerated().reduce(into: [String: Any]()) { result, element in
+                let (index, cart) = element
+                result[String(index)] = [
+                    "item_cost": cart.item.item_cost,
+                    "item_name": cart.item.item_name,
+                    "item_quantity": cart.quantity
+                ]
+            },
+            "total_cost": totalPrice
+        ]
+        
+        db.collection("users").document(userId).setData([
+            "orders": [
+                "order_\(UUID().uuidString)": orderData
+            ]
+        ], merge: true) { error in
+            if let error = error {
+                print("Error writing document: \(error)")
+            } else {
+                print("Order successfully written!")
+            }
+        }
+    }
+    
+    
+    // it doesn't work FİX !!
+    func deleteOrderFromFirestore() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(userId).collection("orders").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in snapshot!.documents {
+                    document.reference.delete { error in
+                        if let error = error {
+                            print("Error removing document: \(error)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

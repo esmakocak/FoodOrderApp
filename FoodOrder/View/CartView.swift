@@ -3,11 +3,7 @@ import SwiftUI
 struct CartView: View {
     @ObservedObject var homeData: HomeViewModel
     @Environment(\.presentationMode) var presentationMode
-
-    // Calculating order price
-    var totalPrice: Double {
-        homeData.cartItems.reduce(0) { $0 + (Double(truncating: $1.item.item_cost) * Double($1.quantity)) }
-    }
+    @State private var isCheckingOut = false
     
     var body: some View {
         VStack {
@@ -146,7 +142,7 @@ struct CartView: View {
                         
                         Spacer()
                         
-                        Text(String(format: "$%.2f", totalPrice))
+                        Text(String(format: "$%.2f", homeData.totalPrice))
                             .font(.title2)
                             .fontWeight(.bold)
                     }
@@ -154,9 +150,15 @@ struct CartView: View {
                     
                     // Check out button
                     Button(action: {
-                        // Complete the order
+                        if isCheckingOut {
+                            homeData.deleteOrderFromFirestore()
+                        } else {
+                            homeData.saveOrderToFirestore()
+                            isCheckingOut = true
+                            
+                        }
                     }) {
-                        Text("Check out")
+                        Text(isCheckingOut ? "Cancel Order" : "Check out")
                             .font(.title2)
                             .fontWeight(.heavy)
                             .foregroundColor(.white)
@@ -165,15 +167,19 @@ struct CartView: View {
                             .background(Color("pinky"))
                             .cornerRadius(15)
                     }
+
                     .padding()
                 }
             }
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        
+    
     }
 }
 
 #Preview {
     CartView(homeData: HomeViewModel())
 }
+
